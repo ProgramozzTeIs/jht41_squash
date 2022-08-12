@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<form method="post" action="/login">
+		Name:
+		<input type="text" name="name"/>
+		Password:
+		<input type="password" name="pwd"/>
+		<input type="submit" />
+	
+	</form>
+	<p th:text="${feedback}"></p>
+</body>
+</html>
