@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name= "games")
@@ -17,24 +18,31 @@ public class Game {
 	private int id;
 	
 	@Column(name= "useroneid")
-	private User userOne;
+	private int userOneId;
 	
 	@Column(name= "usertwoid")
-	private User userTwo;
+	private int userTwoId;
 	
 	@Column(name= "useronepoints")
-	private int useronepoint;
+	private int userOnePoint;
 	
 	@Column(name= "usertwopoints")
-	private int usertwopoint;
+	private int userTwoPoint;
 	
-	@Column(name= "location")
-	private Location location;
+	@Column(name= "locationid")
+	private int locationId;
 	
 	@Column (name= "date")
 	private String date;
 	
+	@Transient
+	private User userOne;
 	
+	@Transient
+	private User userTwo;
+	
+	@Transient
+	private Location location;
 	
 	
 
@@ -44,6 +52,54 @@ public class Game {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getUserOneId() {
+		return userOneId;
+	}
+
+	public void setUserOneId(int userOneId) {
+		this.userOneId = userOneId;
+	}
+
+	public int getUserTwoId() {
+		return userTwoId;
+	}
+
+	public void setUserTwoId(int userTwoId) {
+		this.userTwoId = userTwoId;
+	}
+
+	public int getUserOnePoint() {
+		return userOnePoint;
+	}
+
+	public void setUserOnePoint(int userOnePoint) {
+		this.userOnePoint = userOnePoint;
+	}
+
+	public int getUserTwoPoint() {
+		return userTwoPoint;
+	}
+
+	public void setUserTwoPoint(int userTwoPoint) {
+		this.userTwoPoint = userTwoPoint;
+	}
+
+	public int getLocationId() {
+		return locationId;
+	}
+
+	public void setLocationId(int locationId) {
+		this.locationId = locationId;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	public User getUserOne() {
@@ -62,22 +118,6 @@ public class Game {
 		this.userTwo = userTwo;
 	}
 
-	public int getUseronepoint() {
-		return useronepoint;
-	}
-
-	public void setUseronepoint(int useronepoint) {
-		this.useronepoint = useronepoint;
-	}
-
-	public int getUsertwopoint() {
-		return usertwopoint;
-	}
-
-	public void setUsertwopoint(int usertwopoint) {
-		this.usertwopoint = usertwopoint;
-	}
-
 	public Location getLocation() {
 		return location;
 	}
@@ -86,20 +126,18 @@ public class Game {
 		this.location = location;
 	}
 
-	public String getDate() {
-		return date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
-	}
-
 	@Override
 	public String toString() {
-		return "Game [id=" + id + ", userOne=" + userOne + ", userTwo=" + userTwo + ", useronepoint=" + useronepoint
-				+ ", usertwopoint=" + usertwopoint + ", location=" + location + ", date=" + date + "]";
+		return "Game [id=" + id + ", userOneId=" + userOneId + ", userTwoId=" + userTwoId + ", userOnePoint="
+				+ userOnePoint + ", userTwoPoint=" + userTwoPoint + ", locationId=" + locationId + ", date=" + date
+				+ ", userOne=" + userOne + ", userTwo=" + userTwo + ", location=" + location + "]";
 	}
+
+
 	
+	
+	
+
 	
 	
 	
