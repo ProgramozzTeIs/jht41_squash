@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Change password</title>
+</head>
+<body>
+
+	<form method="post" action="/change">
+		<input type="text" name="userId" th:value="${User.id}"/>
+		<input type="password" name="pwd" placeholder="New password"/>
+	
+		<input type="submit" value="Save" />
+	</form>
+	
+
+</body>
+</html>
