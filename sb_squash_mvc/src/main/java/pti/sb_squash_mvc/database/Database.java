@@ -205,6 +205,24 @@ public class Database {
 		
 		return allLocations;
 	}
+	
+	// GET ALL USERS (except Admin) //
+	public List<User> getPlayers() {
+		
+		List<User> playerList = null;
+		
+		Session session = sessionFactory.openSession();
+		Transaction tr = session.beginTransaction();
+		
+		Query q = session.createQuery("SELECT u FROM User u WHERE type = 'user'", User.class);
+		playerList = q.getResultList();
+		
+		tr.commit();
+		session.close();
+		
+		return playerList;
+		
+	}
 
 	
 	public void close() {
