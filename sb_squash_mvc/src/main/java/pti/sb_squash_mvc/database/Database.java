@@ -117,7 +117,10 @@ public class Database {
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		
-		Query query = session.createQuery( "SELECT g FROM Game g WHERE g.useroneid = :id OR g.usertwoid = :id" , Game.class);
+		Query query = session.createQuery( "SELECT g FROM Game g WHERE g.useroneid = :oneid OR g.usertwoid = :twoid" , Game.class);
+		query.setParameter("oneid", id);
+		query.setParameter("twoid", id);
+		
 		List<Game> games = query.getResultList();
 		
 		transaction.commit();
