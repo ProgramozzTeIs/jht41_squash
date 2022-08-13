@@ -220,8 +220,21 @@ public class Database {
 		tr.commit();
 		session.close();
 		
-		return playerList;
+		return playerList;	
+	}
+	
+	// SAVE A NEW GAME //
+	public Game regGame (Game newgame) {
 		
+		Session session = sessionFactory.openSession();
+		Transaction tr = session.beginTransaction();
+		
+		session.save(newgame);
+		
+		tr.commit();
+		session.close();
+		
+		return newgame;
 	}
 
 	
