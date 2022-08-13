@@ -146,6 +146,67 @@ public class Database {
 		
 	}
 	
+	/** GET GAME By ID */
+	public Game getGameById(int id) {
+		
+		
+		Session session = sessionFactory.openSession();
+		Transaction trans = session.beginTransaction();
+		
+		Game game = session.get(Game.class, id);
+		
+		game.setUserOne(session.get(User.class, game.getUserOneId()));
+		game.setUserTwo(session.get(User.class, game.getUserTwoId()));
+		game.setLocation(session.get(Location.class, game.getLocationId()));
+		
+		trans.commit();
+		session.close();
+		
+		return game;
+	}
+	
+	/** GET GAMES BY LOCATIONID */
+	public List<Game> getGamesByLocationId(int id){
+		
+		Session session = sessionFactory.openSession();
+		Transaction trans = session.beginTransaction();
+		
+		Query query = session.createQuery("SELECT g FROM Game g WHERE g.locationId = :id",Game.class);
+		query.setParameter("id", id);
+		List<Game> gameList = query.getResultList();
+		
+		for(int game = 0 ; game < gameList.size() ; game++) {
+			
+			
+			gameList.get(game).setUserOne(session.get(User.class, gameList.get(game).getUserOneId()));
+			gameList.get(game).setUserTwo(session.get(User.class, gameList.get(game).getUserTwoId()));
+			gameList.get(game).setLocation(session.get(Location.class, gameList.get(game).getLocationId()));
+			
+			
+		}
+		
+		trans.commit();
+		session.close();
+		
+		return gameList;
+	}
+	
+	/** GET ALL LOCATIONS */ 
+	public List<Location> getLocations(){
+		
+		Session session = sessionFactory.openSession();
+		Transaction trans = session.beginTransaction();
+		
+		Query query = session.createQuery("SELECT l FROM Location l", Location.class);
+		List<Location> allLocations = query.getResultList();
+		
+		trans.commit();
+		session.close();
+		
+		return allLocations;
+	}
+
+	
 	public void close() {
 		sessionFactory.close();
 	}
