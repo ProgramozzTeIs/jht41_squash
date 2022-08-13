@@ -250,6 +250,7 @@ public class Database {
 		
 		// send request to REST API napiarfolyam.hu//
 		RestTemplate restT = new RestTemplate();
+		String xml = restT.getForObject("http://api.napiarfolyam.hu/?valuta=eur", String.class);
 		
 		tr.commit();
 		session.close();
