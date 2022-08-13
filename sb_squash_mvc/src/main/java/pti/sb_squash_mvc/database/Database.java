@@ -1,5 +1,7 @@
 package pti.sb_squash_mvc.database;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -10,11 +12,13 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.jdom2.JDOMException;
 import org.springframework.web.client.RestTemplate;
 
 import pti.sb_squash_mvc.model.Game;
 import pti.sb_squash_mvc.model.Location;
 import pti.sb_squash_mvc.model.User;
+import pti.sb_squash_mvc.parser.XMLParser;
 
 
 
@@ -239,7 +243,7 @@ public class Database {
 	}
 	
 	// GET LOCATION BY ID //
-	public Location getLocationById(int id) {
+	public Location getLocationById(int id) throws JDOMException, IOException {
 		
 		Location location = null;
 		
@@ -250,7 +254,22 @@ public class Database {
 		
 		// send request to REST API napiarfolyam.hu//
 		RestTemplate restT = new RestTemplate();
+		XMLParser parser = new XMLParser();
 		String xml = restT.getForObject("http://api.napiarfolyam.hu/?valuta=eur", String.class);
+		
+		// calculate average EUR price (in Forint)//
+		ArrayList<Double> eurList = parser.getEUR(xml);
+		double sumEur = 0;
+		
+		for(int i = 0; i < eurList.size(); i++) {
+			
+			sumEur += eurList.get(i);
+		}		
+		double averageEur = sumEur / eurList.size();
+		
+		// calculate the rental price from Forint to EUR and set rentEur attribute
+		double rentEur = location.getRent() / averageEur;
+		location.setRentEUR(rentEur);
 		
 		tr.commit();
 		session.close();
