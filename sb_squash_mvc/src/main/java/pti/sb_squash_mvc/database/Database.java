@@ -10,6 +10,7 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.springframework.web.client.RestTemplate;
 
 import pti.sb_squash_mvc.model.Game;
 import pti.sb_squash_mvc.model.Location;
@@ -235,6 +236,25 @@ public class Database {
 		session.close();
 		
 		return newgame;
+	}
+	
+	// GET LOCATION BY ID //
+	public Location getLocationById(int id) {
+		
+		Location location = null;
+		
+		Session session = sessionFactory.openSession();
+		Transaction tr = session.beginTransaction();
+		
+		location = session.get(Location.class, id);
+		
+		// send request to REST API napiarfolyam.hu//
+		RestTemplate restT = new RestTemplate();
+		
+		tr.commit();
+		session.close();
+		
+		return location;
 	}
 
 	
