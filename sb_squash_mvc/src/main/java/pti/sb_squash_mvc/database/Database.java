@@ -95,7 +95,52 @@ public class Database {
 	}
 	
 	
+	/** REGISTER NEW USER (PLAYER) */
+	public User regUser(User newuser) {
+		
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		session.save(newuser);
+		
+		transaction.commit();
+		session.close();
+		
+		return newuser;	
+		
+	}
 	
+	/** GET ALL GAMES BY USER ID-s */
+	public List<Game> getGamesByUserId(int id) {
+		
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		Query query = session.createQuery( "SELECT g FROM Game g WHERE g.useroneid = :id OR g.usertwoid = :id" , Game.class);
+		List<Game> games = query.getResultList();
+		
+		transaction.commit();
+		session.close();
+		
+		return games;
+		
+	}
+	
+	/** GET ALL GAMES */
+	public List<Game> getGames() {
+		
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		Query query = session.createQuery( "SELECT g FROM Game " , Game.class);
+		List<Game> allGames = query.getResultList();
+		
+		transaction.commit();
+		session.close();
+		
+		return allGames;
+		
+	}
 	
 	public void close() {
 		sessionFactory.close();
