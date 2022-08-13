@@ -12,6 +12,12 @@ import pti.sb_squash_mvc.model.User;
 @Controller
 public class LoginController {
 	
+	@GetMapping("/")
+	public String loadLoginpage() {
+		
+		return "login.html";
+	}
+	
 	@GetMapping("/logout")
 	public String logout(Model model, @RequestParam(name = "userid") int userId) {
 		
