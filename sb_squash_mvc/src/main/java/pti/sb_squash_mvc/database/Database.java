@@ -187,8 +187,27 @@ public class Database {
 			gameList.get(game).setUserTwo(session.get(User.class, gameList.get(game).getUserTwoId()));
 			gameList.get(game).setLocation(session.get(Location.class, gameList.get(game).getLocationId()));
 			
+		}
+		
+		for(int i = 0  ; i < gameList.size() - 1 ; i++) {
+			
+			Game gameOne = gameList.get(i);
+			Game gameTwo = gameList.get(i + 1);
+			
+			int compareToResult =
+					gameOne.getDate().compareTo(gameTwo.getDate());
+					
+			if(compareToResult < 0 ) {
+				
+				Game temp = gameOne;
+				gameList.set(i,gameList.get(i+1));
+				gameList.set(i+1, temp);
+				i = -1;
+				
+			}
 			
 		}
+	
 		
 		trans.commit();
 		session.close();
@@ -197,13 +216,36 @@ public class Database {
 	}
 	
 	/** GET ALL LOCATIONS */ 
-	public List<Location> getLocations(){
+	public List<Location> getLocations() throws JDOMException, IOException{
 		
 		Session session = sessionFactory.openSession();
 		Transaction trans = session.beginTransaction();
 		
 		Query query = session.createQuery("SELECT l FROM Location l", Location.class);
 		List<Location> allLocations = query.getResultList();
+		
+		for(int location = 0 ; location < allLocations.size() ; location++) {
+			
+			// send request to REST API napiarfolyam.hu//
+			RestTemplate restT = new RestTemplate();
+			XMLParser parser = new XMLParser();
+			String xml = restT.getForObject("http://api.napiarfolyam.hu/?valuta=eur", String.class);
+			
+			// calculate average EUR price (in Forint)//
+			ArrayList<Double> eurList = parser.getEUR(xml);
+			double sumEur = 0;
+			
+			for(int i = 0; i < eurList.size(); i++) {
+				
+				sumEur += eurList.get(i);
+			}		
+			double averageEur = sumEur / eurList.size();
+			
+			// calculate the rental price from Forint to EUR and set rentEur attribute
+			double rentEur = allLocations.get(location).getRent() / averageEur;
+			allLocations.get(location).setRentEUR(rentEur);
+			
+		}
 		
 		trans.commit();
 		session.close();
