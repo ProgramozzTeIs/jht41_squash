@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 @Entity
@@ -26,6 +27,9 @@ public class Location {
 	
 	@Column(name = "rent")
 	private int rent;
+	
+	@Transient
+	private int rentEUR;
 
 	public int getId() {
 		return id;
@@ -59,10 +63,20 @@ public class Location {
 		this.rent = rent;
 	}
 
+	public int getRentEUR() {
+		return rentEUR;
+	}
+
+	public void setRentEUR(int rentEUR) {
+		this.rentEUR = rentEUR;
+	}
+
 	@Override
 	public String toString() {
-		return "Location [id=" + id + ", name=" + name + ", address=" + address + ", rent=" + rent + "]";
+		return "Location [id=" + id + ", name=" + name + ", address=" + address + ", rent=" + rent + ", rentEUR="
+				+ rentEUR + "]";
 	}
+	
 	
 	
 
