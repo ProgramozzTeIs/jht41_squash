@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Admin</title>
+</head>
+<body>
+
+	<p th:text="${user.name}"></p>
+	
+	
+	<p>Player List</p>
+	
+	
+	<table>
+	
+		<th>Id</th>
+		<th>Player Name</th>
+		
+		
+		
+		<tr th:each="user , stat : ${players}">
+			
+			<td th:text="${user.id}"></td>
+			<td th:text="${user.name}"></td>
+			
+	
+		</tr>
+	
+	</table>
+
+	
+	<p>Game List</p>
+	
+	<br/>
+	
+	<table>
+	
+		<th>Id</th>
+		<th>PlayerOne Name</th>
+		<th>PlayerOne Points</th>
+		<th>PlayerTwo Name</th>
+		<th>PlayerTwo Points</th>
+		<th>Location</th>
+		<th>Date</th>
+		
+		
+		<tr th:each= "game , stat : ${games}">
+			
+			<td th:text="${game.id}"></td>
+			<td>
+				<p th:each="user : ${game.userOne}">
+			<span th:text="${user.name}"></span> </p>
+			<td th:text="${game.userOnePoint}"></td>
+			<td>
+				<p th:each="user : ${game.userTwo}">
+			<span th:text="${user.name}"></span></p>
+			<td th:text="${game.userTwoPoint}"></td>
+			<td>
+				<p th:each="location : ${game.location}">
+			<span th:text="${location.name}"></span></p>
+			<td th:text="${game.date}"></td>
+	
+		</tr>
+	
+	</table>
+	
+	<br/>
+	
+	<p>Location List</p>
+	
+	<br/>
+	
+	<table>
+	
+		<th>Id</th>
+		<th>Name</th>
+		<th>Address</th>
+		<th>Rent</th>
+		<th>Rent Euro</th>
+		
+	
+		<tr th:each= "location, stat : ${locations}">
+			<td th:text="${location.id}"></td>
+			<td th:text="${location.name}"></td>
+			<td th:text="${location.address}"></td>
+			<td th:text="${location.rent}"></td>
+			<td th:text="${location.rentEUR}"></td>
+			
+		</tr>
+	
+	</table>
+	
+	<br/>
+	
+	
+	<p>Add Player</p>
+	
+	
+	<form action="/admin/regplayer" method="post">
+	
+		<input type="text" name="name">
+		<input type="submit" value="Save"> 
+	
+	
+	</form>
+	
+	<p th:text="${feedbackRegPlayer}"></p>
+	
+	<br/>
+	
+	<p>Add Location</p>
+	
+	<form action="/admin/reglocation" method="post">
+		
+		<input type="text" name="locationName" placeholder="locationName">
+		<input type="text" name="address" placeholder="address">
+		<input type="number" name="rent" placeholder="rent">
+		<input type="submit" value="Save">
+	
+	</form>
+	
+	<p th:text="${feedbackRegLocation}"></p>
+	
+	<br/>
+	
+	<p>Add Game</p>
+	
+	<form action="/admin/reggame" method="post">
+	
+		<input type="number" name="userOneId" placeholder="userOneId">
+		<input type="number" name="userTwoId" placeholder="userTwoId">
+		<input type="number" name="userOnePoint" placeholder="userOnePoint">
+		<input type="number" name="userTwoPoint" placeholder="userTwoPoint">
+		<input type="number" name="locationId" placegholder="locationId">
+		<input type="text" name="date" placeholder="date">
+		<input type="submit" value="Save">
+	
+	</form>
+	
+	<p th:text="${feddbackRegGame}"></p>
+	
+	
+	<br/>
+	
+	<form action="/logout" method="get">
+	
+		<input type="hidden" name="userid" th:value="${user.id}">
+		<input type="submit" value="Logout">
+	
+	</form>
+
+
+</body>
+</html>
