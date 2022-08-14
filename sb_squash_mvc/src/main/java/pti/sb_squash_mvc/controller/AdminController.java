@@ -6,7 +6,7 @@ import java.util.Random;
 import org.jdom2.JDOMException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -48,7 +48,7 @@ public class AdminController {
 		model.addAttribute("user", user);
 		model.addAttribute("userList", db.getPlayers());
 		model.addAttribute("locationList", db.getLocations());
-		
+		model.addAttribute("feedbackRegPlayer", "succesful registration");
 		
 		
 		db.close();
