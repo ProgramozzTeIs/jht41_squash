@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import pti.sb_squash_mvc.model.Game;
 import pti.sb_squash_mvc.model.Location;
 import pti.sb_squash_mvc.model.User;
+import pti.sb_squash_mvc.services.RestHandler;
 import pti.sb_squash_mvc.services.XMLParser;
 
 
@@ -309,27 +310,14 @@ public class Database {
 		
 		Session session = sessionFactory.openSession();
 		Transaction tr = session.beginTransaction();
+		RestHandler rh = new RestHandler();
 		
-		location = session.get(Location.class, id);
+		location = session.get(Location.class, id);		
 		
-		// send request to REST API napiarfolyam.hu//
-		RestTemplate restT = new RestTemplate();
-		XMLParser parser = new XMLParser();
-		String xml = restT.getForObject("http://api.napiarfolyam.hu/?valuta=eur", String.class);
+		// FROM RESTHANDLER
+		double eur = rh.getEur(location);
 		
-		// calculate average EUR price (in Forint)//
-		ArrayList<Double> eurList = parser.getEUR(xml);
-		double sumEur = 0;
-		
-		for(int i = 0; i < eurList.size(); i++) {
-			
-			sumEur += eurList.get(i);
-		}		
-		double averageEur = sumEur / eurList.size();
-		
-		// calculate the rental price from Forint to EUR and set rentEur attribute
-		double rentEur = location.getRent() / averageEur;
-		location.setRentEUR(rentEur);
+		location.setRentEUR(eur);
 		
 		tr.commit();
 		session.close();
