@@ -21,7 +21,7 @@ import pti.sb_squash_mvc.model.User;
 public class UserController {
 
 	@GetMapping("/searchuser")
-	public String searchuser(Model model, @RequestParam(name = "logedinuser") int linuserid ,@RequestParam(name = "user") int userId) {
+	public String searchuser(Model model, @RequestParam(name = "logedinuser") int linuserid ,@RequestParam(name = "user") int userId) throws JDOMException, IOException {
 		
 		String html = "";
 		
@@ -37,9 +37,9 @@ public class UserController {
 			
 			List<Location> locations = db.getLocations();
 			
-			model.addAttribute("users", users);
-			model.addAttribute("locations", locations);
-			model.addAttribute("games", games);
+			model.addAttribute("userList", users);
+			model.addAttribute("locationList", locations);
+			model.addAttribute("gameList", games);
 			model.addAttribute("user", user);
 			html = "user.html";
 		}

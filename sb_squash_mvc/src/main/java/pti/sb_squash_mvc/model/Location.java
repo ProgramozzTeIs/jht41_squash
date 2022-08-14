@@ -29,7 +29,13 @@ public class Location {
 	private int rent;
 	
 	@Transient
-	private int rentEUR;
+	private double rentEUR;
+
+	@Override
+	public String toString() {
+		return "Location [id=" + id + ", name=" + name + ", address=" + address + ", rent=" + rent + ", rentEUR="
+				+ rentEUR + "]";
+	}
 
 	public int getId() {
 		return id;
@@ -63,21 +69,14 @@ public class Location {
 		this.rent = rent;
 	}
 
-	public int getRentEUR() {
+	public double getRentEUR() {
 		return rentEUR;
 	}
 
-	public void setRentEUR(int rentEUR) {
+	public void setRentEUR(double rentEUR) {
 		this.rentEUR = rentEUR;
 	}
 
-	@Override
-	public String toString() {
-		return "Location [id=" + id + ", name=" + name + ", address=" + address + ", rent=" + rent + ", rentEUR="
-				+ rentEUR + "]";
-	}
-	
-	
 	
 
 }

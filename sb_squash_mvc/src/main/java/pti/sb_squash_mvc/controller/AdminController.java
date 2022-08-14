@@ -20,7 +20,7 @@ public class AdminController {
 	
 	
 	@GetMapping("/admin/regplayer")
-	public String regPlayer(Model model, @RequestParam(name = "name") String name) {
+	public String regPlayer(Model model, @RequestParam(name = "name") String name) throws JDOMException, IOException {
 		
 		Database db = new Database();
 		
@@ -44,9 +44,11 @@ public class AdminController {
 		
 		db.regUser(user);
 		
-//		model.addAttribute("users", db.getPlayers());
-//		model.addAttribute("locations", db.getLocations());
-//		model.addAttribute("users", db.getGames());
+		
+		model.addAttribute("user", user);
+		model.addAttribute("users", db.getPlayers());
+		model.addAttribute("locations", db.getLocations());
+		model.addAttribute("games", db.getGames());
 		
 		
 		db.close();
