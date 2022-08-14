@@ -1,4 +1,4 @@
-package pti.sb_squash_mvc.parser;
+package pti.sb_squash_mvc.services;
 
 import java.io.IOException;
 import java.io.StringReader;
