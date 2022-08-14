@@ -99,6 +99,7 @@
 	
 	<form action="/admin/regplayer" method="post">
 	
+		<input type="hidden" name="userid" th:value="${user.id}">
 		<input type="text" name="name">
 		<input type="submit" value="Save"> 
 	
@@ -113,6 +114,7 @@
 	
 	<form action="/admin/reglocation" method="post">
 		
+		<input type="hidden" name="userid" th:value="${user.id}">
 		<input type="text" name="locationName" placeholder="locationName">
 		<input type="text" name="address" placeholder="address">
 		<input type="number" name="rent" placeholder="rent">
@@ -128,6 +130,7 @@
 	
 	<form action="/admin/reggame" method="post">
 	
+		<input type="hidden" name="userid" th:value="${user.id}">
 		<input type="number" name="userOneId" placeholder="userOneId">
 		<input type="number" name="userTwoId" placeholder="userTwoId">
 		<input type="number" name="userOnePoints" placeholder="userOnePoint">
