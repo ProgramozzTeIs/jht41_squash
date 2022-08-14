@@ -61,7 +61,8 @@ public class AdminController {
 						Model model,
 						@RequestParam(name = "locationName") String locationName,
 						@RequestParam(name = "address") String address,
-						@RequestParam(name = "rent") int rent
+						@RequestParam(name = "rent") int rent,
+						@RequestParam(name = "userid") int userid
 			) throws JDOMException, IOException {
 		
 		Location newLocation = new Location();
@@ -74,10 +75,10 @@ public class AdminController {
 		db.regLocation(newLocation);
 			
 		model.addAttribute("feedbackRegLocation", "Location saved.");
-		//model.addAttribute("user", db.getUserById(0)); -- INPUTBA KELLENE AZ AKTUÁLIS USER ID
+		model.addAttribute("user", db.getUserById(userid));
 		model.addAttribute("locations", db.getLocations());
 		model.addAttribute("players", db.getPlayers());
-		model.addAttribute("games", db.getGames()); // Ezt most nem kérte a feladat de forntenden ott van :)
+		model.addAttribute("games", db.getGames());
 		
 		db.close();
 		
@@ -96,7 +97,8 @@ public class AdminController {
 						@RequestParam(name = "userOnePoints") int userOnePoints,
 						@RequestParam(name = "userTwoPoints") int userTwoPoints,
 						@RequestParam(name = "locationId") int locationId,
-						@RequestParam(name = "date") String date
+						@RequestParam(name = "date") String date,
+						@RequestParam(name = "userid") int userid
 			) throws JDOMException, IOException {
 		
 		Database db = new Database();
@@ -115,10 +117,10 @@ public class AdminController {
 			db.regGame(newGame);
 			
 			model.addAttribute("feddbackRegGame", "Game saved.");
-			//model.addAttribute("user", db.getUserById(0)); -- INPUTBA KELLENE AZ AKTUÁLIS USER ID
+			model.addAttribute("user", db.getUserById(userid));
 			model.addAttribute("locations", db.getLocations());
 			model.addAttribute("players", db.getPlayers());
-			model.addAttribute("games", db.getGames()); // Ezt most nem kérte a feladat de forntenden ott van :)
+			model.addAttribute("games", db.getGames());
 			
 			db.close();
 			
