@@ -3,8 +3,60 @@
 <head>
 <meta charset="UTF-8">
 <title>User Homepage</title>
+<style>
+	h1 {
+		text-align: center;
+	}
+	
+	table {
+		width: 100%;
+		text-align: center;
+		border: 5px solid;
+		border-radius: 8px;
+	}
+</style>
 </head>
 <body>
-
+	<h1>Welcome <span th:text="${user.name}"></span>!</h1>
+	<br/>
+	<form action="searchuser" method="get">
+		<select name="user">
+			<option th:each="u : ${userList}" th:text="${u.name}" th:value="${u.id}"></option>
+		</select>
+		<input type="hidden" th:value="${user.id}" name="logedinuser">
+		<input type="submit" value="Search!">
+	</form>
+	<br/>
+	<form action="/searchlocation" method="get">
+		<select name="locationId">
+			<option th:each="loc : ${locationList}" th:text="${loc.name}" th:value="${loc.id}"></option>
+		</select>
+		<input type="hidden" th:value="${user.id}" name="loggedInUserId">
+		<input type="submit" value="Search!">
+	</form>
+	<br/>
+	<table>
+		<thead>
+			<tr><th colspan="6">Games</th></tr>
+			<tr>
+				<th>1. Player Name</th>
+				<th>2. Player Name</th>
+				<th>1. Player's Points</th>
+				<th>2. Player's Points</th>
+				<th>Location</th>
+				<th>Date</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="game: ${gameList}">
+				<td th:text="${game.userOne.name}"></td>
+				<td th:text="${game.userTwo.name}"></td>
+				<td th:text="${game.userOnePoint}"></td>
+				<td th:text="${game.userTwoPoint}"></td>
+				<td th:text="'${game.location.name}' + ', ' + '${game.location.address}'"></td>
+				<td th:text="${game.date}"></td>
+			</tr>
+		</tbody>
+	</table>
 </body>
 </html>
