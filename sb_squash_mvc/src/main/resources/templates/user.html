@@ -8,10 +8,14 @@
 		text-align: center;
 	}
 	
-	table, th, td {
+	table {
 		width: 100%;
 		text-align: center;
 		border: 5px solid;
+	}
+	
+	th, td {
+		border: 1px solid;
 	}
 </style>
 </head>
@@ -57,5 +61,11 @@
 			</tr>
 		</tbody>
 	</table>
+	<br/>
+	
+	<form action="/logout" method="get">
+		<input type="hidden" name="userid" th:value="${user.id}">
+		<input type="submit" value="Logout">
+	</form>
 </body>
 </html>

@@ -60,7 +60,7 @@ public class LoginController {
 					model.addAttribute("locationList", locationList);
 					model.addAttribute("gameList", gameList);
 					model.addAttribute("user", user);
-					System.out.println(gameList);
+
 					page = "user.html";
 				}
 				
