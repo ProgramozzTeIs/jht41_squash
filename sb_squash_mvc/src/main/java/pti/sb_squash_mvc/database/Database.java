@@ -122,11 +122,20 @@ public class Database {
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		
-		Query query = session.createQuery( "SELECT g FROM Game g WHERE g.useroneid = :oneid OR g.usertwoid = :twoid" , Game.class);
+		Query query = session.createQuery( "SELECT g FROM Game g WHERE g.userOneId = :oneid OR g.userTwoId = :twoid" , Game.class);
 		query.setParameter("oneid", id);
 		query.setParameter("twoid", id);
 		
 		List<Game> games = query.getResultList();
+		
+		for(int i = 0; i < games.size(); i++) {
+			Game game = games.get(i);
+			
+			game.setUserOne(session.get(User.class, game.getUserOneId()));
+			game.setUserTwo(session.get(User.class, game.getUserTwoId()));
+			game.setLocation(session.get(Location.class, game.getLocationId()));
+			
+		}
 		
 		transaction.commit();
 		session.close();
@@ -141,8 +150,17 @@ public class Database {
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		
-		Query query = session.createQuery( "SELECT g FROM Game " , Game.class);
+		Query query = session.createQuery( "SELECT g FROM Game g" , Game.class);
 		List<Game> allGames = query.getResultList();
+		
+		for(int i = 0; i < allGames.size(); i++) {
+			Game game = allGames.get(i);
+			
+			game.setUserOne(session.get(User.class, game.getUserOneId()));
+			game.setUserTwo(session.get(User.class, game.getUserTwoId()));
+			game.setLocation(session.get(Location.class, game.getLocationId()));
+			
+		}
 		
 		transaction.commit();
 		session.close();

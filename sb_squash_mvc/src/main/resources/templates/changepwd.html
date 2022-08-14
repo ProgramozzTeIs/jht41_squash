@@ -7,8 +7,8 @@
 <body>
 
 	<form method="post" action="/change">
-		<input type="hidden" name="userId" th:value="${User.id}"/>
-		<input type="password" name="pwd" placeholder="New password"/>
+		<input type="hidden" name="userId" th:value="${userid}"/>
+		<input type="password" name="password" placeholder="New password"/>
 	
 		<input type="submit" value="Save" />
 	</form>

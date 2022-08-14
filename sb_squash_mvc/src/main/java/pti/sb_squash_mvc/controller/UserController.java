@@ -77,9 +77,9 @@ public class UserController {
 			page = "user.html";
 			
 			model.addAttribute("user", user);
-			model.addAttribute("users", userList);
-			model.addAttribute("games", gameList);
-			model.addAttribute("locations",locationList);
+			model.addAttribute("userList", userList);
+			model.addAttribute("gameList", gameList);
+			model.addAttribute("locationList",locationList);
 		}
 	
 		db.close();
@@ -118,9 +118,9 @@ public class UserController {
 			page = "user.html";
 			
 			model.addAttribute("user", user);
-			model.addAttribute("users", userList);
-			model.addAttribute("games", gameList);
-			model.addAttribute("locations", locationList);	
+			model.addAttribute("userList", userList);
+			model.addAttribute("gameList", gameList);
+			model.addAttribute("locationList", locationList);	
 			
 		}
 		db.close();
