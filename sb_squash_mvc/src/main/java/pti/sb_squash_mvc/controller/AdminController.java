@@ -140,4 +140,19 @@ public class AdminController {
 		return "admin.html";
 		
 	}
+	
+	
+	@GetMapping("/admin/export")
+	public String exportDBToXML() {
+		
+		// TODO
+		return "admin.html";
+	}
+	
+	@GetMapping("/admin/import")
+	public String importDBFromXML() {
+		
+		// TODO
+		return "admin.html";
+	}
 }

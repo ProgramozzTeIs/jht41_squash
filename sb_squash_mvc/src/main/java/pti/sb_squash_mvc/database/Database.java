@@ -18,7 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import pti.sb_squash_mvc.model.Game;
 import pti.sb_squash_mvc.model.Location;
 import pti.sb_squash_mvc.model.User;
-import pti.sb_squash_mvc.parser.XMLParser;
+import pti.sb_squash_mvc.services.XMLParser;
 
 
 
