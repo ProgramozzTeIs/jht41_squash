@@ -19,12 +19,12 @@ import pti.sb_squash_mvc.model.User;
 public class AdminController {
 	
 	
-	@GetMapping("/admin/regplayer")
+	@PostMapping("/admin/regplayer")
 	public String regPlayer(Model model, @RequestParam(name = "name") String name) throws JDOMException, IOException {
 		
 		Database db = new Database();
 		
-		User user = null;
+		User user = new User();
 		
 		user.setType("user");
 		
@@ -46,9 +46,9 @@ public class AdminController {
 		
 		
 		model.addAttribute("user", user);
-		model.addAttribute("users", db.getPlayers());
-		model.addAttribute("locations", db.getLocations());
-		model.addAttribute("games", db.getGames());
+		model.addAttribute("userList", db.getPlayers());
+		model.addAttribute("locationList", db.getLocations());
+		
 		
 		
 		db.close();
@@ -78,13 +78,13 @@ public class AdminController {
 			
 		model.addAttribute("feedbackRegLocation", "Location saved.");
 		model.addAttribute("user", db.getUserById(userid));
-		model.addAttribute("locations", db.getLocations());
-		model.addAttribute("players", db.getPlayers());
-		model.addAttribute("games", db.getGames());
+		model.addAttribute("locationList", db.getLocations());
+		model.addAttribute("userList", db.getPlayers());
+		
 		
 		db.close();
 		
-		return "admin.htlm";
+		return "admin.html";
 	
 	}
 	
@@ -120,9 +120,9 @@ public class AdminController {
 			
 			model.addAttribute("feddbackRegGame", "Game saved.");
 			model.addAttribute("user", db.getUserById(userid));
-			model.addAttribute("locations", db.getLocations());
-			model.addAttribute("players", db.getPlayers());
-			model.addAttribute("games", db.getGames());
+			model.addAttribute("locationList", db.getLocations());
+			model.addAttribute("userList", db.getPlayers());
+			
 			
 			db.close();
 			
@@ -131,6 +131,10 @@ public class AdminController {
 		
 			model.addAttribute("feddbackRegGame", "ERROR: Wrong user ID or location ID!");
 			
+			
+			model.addAttribute("user", db.getUserById(userid));
+			model.addAttribute("locationList", db.getLocations());
+			model.addAttribute("userList", db.getPlayers());
 		}
 		
 		return "admin.html";

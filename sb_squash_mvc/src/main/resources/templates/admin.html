@@ -19,7 +19,7 @@
 		
 		
 		
-		<tr th:each="user , stat : ${players}">
+		<tr th:each="user: ${userList}">
 			
 			<td th:text="${user.id}"></td>
 			<td th:text="${user.name}"></td>
@@ -29,41 +29,7 @@
 	
 	</table>
 
-	
-	<p>Game List</p>
-	
-	<br/>
-	
-	<table>
-	
-		<th>Id</th>
-		<th>PlayerOne Name</th>
-		<th>PlayerOne Points</th>
-		<th>PlayerTwo Name</th>
-		<th>PlayerTwo Points</th>
-		<th>Location</th>
-		<th>Date</th>
-		
-		
-		<tr th:each= "game , stat : ${games}">
-			
-			<td th:text="${game.id}"></td>
-			<td>
-				<p th:each="user : ${game.userOne}">
-			<span th:text="${user.name}"></span> </p>
-			<td th:text="${game.userOnePoint}"></td>
-			<td>
-				<p th:each="user : ${game.userTwo}">
-			<span th:text="${user.name}"></span></p>
-			<td th:text="${game.userTwoPoint}"></td>
-			<td>
-				<p th:each="location : ${game.location}">
-			<span th:text="${location.name}"></span></p>
-			<td th:text="${game.date}"></td>
-	
-		</tr>
-	
-	</table>
+
 	
 	<br/>
 	
@@ -80,7 +46,7 @@
 		<th>Rent Euro</th>
 		
 	
-		<tr th:each= "location, stat : ${locations}">
+		<tr th:each= "location: ${locationList}">
 			<td th:text="${location.id}"></td>
 			<td th:text="${location.name}"></td>
 			<td th:text="${location.address}"></td>
