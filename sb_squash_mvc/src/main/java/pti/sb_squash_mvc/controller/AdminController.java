@@ -118,7 +118,7 @@ public class AdminController {
 			
 			db.regGame(newGame);
 			
-			model.addAttribute("feddbackRegGame", "Game saved.");
+			model.addAttribute("feedbackRegGame", "Game saved.");
 			model.addAttribute("user", db.getUserById(userid));
 			model.addAttribute("locationList", db.getLocations());
 			model.addAttribute("userList", db.getPlayers());

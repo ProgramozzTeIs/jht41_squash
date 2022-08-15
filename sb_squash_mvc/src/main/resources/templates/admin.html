@@ -121,7 +121,7 @@
 	
 	</form>
 	
-	<p th:text="${feddbackRegGame}"></p>
+	<p th:text="${feedbackRegGame}"></p>
 	
 	
 	<br/>
@@ -132,6 +132,26 @@
 		<input type="submit" value="Logout">
 	
 	</form>
+	
+		
+		<form action="/admin/export" method="get">
+   
+   		<input type="hidden" name="userid" th:value="${user.id}">
+        <input type="submit" value="Export">
+
+    </form>
+    
+    
+    <form action="/admin/import" method="get">
+    	
+    	<input type="hidden" name="userid" th:value="${user.id}">
+        <input type="submit" value="Import">
+    
+    </form>
+    
+    <p th:text="${feedbackExport}"></p>
+    <p th:text="${feedbackImport}"></p>
+	
 
 
 </body>
