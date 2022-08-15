@@ -96,12 +96,26 @@
 	
 	<form action="/admin/reggame" method="post">
 	
-		<input type="hidden" name="userid" th:value="${user.id}">
-		<input type="number" name="userOneId" placeholder="userOneId">
-		<input type="number" name="userTwoId" placeholder="userTwoId">
+	<input type="hidden" name="userid" th:value="${user.id}">
+	
+	<label>User One Id</label>
+	 	<select name="userOneId" >
+	 	<option th:each="user : ${userList}" th:value="${user.id}" th:text="${user.id}"></option>
+	 	</select>
+ 	
+ 	<label>User Two Id</label>
+	 	<select name="userTwoId" >
+	 	<option th:each="user : ${userList}" th:value="${user.id}" th:text="${user.id}"></option>
+	 	</select>
+		
 		<input type="number" name="userOnePoints" placeholder="userOnePoint">
 		<input type="number" name="userTwoPoints" placeholder="userTwoPoint">
-		<input type="number" name="locationId" placegholder="locationId">
+		
+	<label>Location Id</label>
+	 	<select name="locationId" >
+	 	<option th:each="location : ${locationList}" th:value="${location.id}" th:text="${location.id}"></option>
+	 	</select>
+		
 		<input type="text" name="date" placeholder="date">
 		<input type="submit" value="Save">
 	
@@ -118,20 +132,6 @@
 		<input type="submit" value="Logout">
 	
 	</form>
-	
-	
-	<form action="/admin/export" method="get">
-   
-        <input type="submit" value="Logout">
-
-    </form>
-    
-    
-    <form action="/admin/import" method="get">
-    
-        <input type="submit" value="Logout">
-    
-    </form>
 
 
 </body>
