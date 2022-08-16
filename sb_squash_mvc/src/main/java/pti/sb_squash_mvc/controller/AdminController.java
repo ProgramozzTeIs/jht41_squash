@@ -1,12 +1,13 @@
 package pti.sb_squash_mvc.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 import org.jdom2.JDOMException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -14,6 +15,7 @@ import pti.sb_squash_mvc.database.Database;
 import pti.sb_squash_mvc.model.Game;
 import pti.sb_squash_mvc.model.Location;
 import pti.sb_squash_mvc.model.User;
+import pti.sb_squash_mvc.services.XMLParser;
 
 @Controller
 public class AdminController {
@@ -141,18 +143,71 @@ public class AdminController {
 		
 	}
 	
-	
 	@GetMapping("/admin/export")
-	public String exportDBToXML() {
+	public String exportDBToXML(Model model,
+			@RequestParam(name="userid") int userid) throws IOException, JDOMException {
 		
-		// TODO
+		XMLParser pr = new XMLParser();
+		Database db = new Database();
+		
+		pr.saveusersTOXML(db.getPlayers());
+		pr.saveLocationToXML(db.getLocations());
+		pr.saveGamesToXML(db.getGames());
+		
+		
+		model.addAttribute("user", db.getUserById(userid));
+		model.addAttribute("locationList", db.getLocations());
+		model.addAttribute("userList", db.getPlayers());
+		model.addAttribute("feedbackExport","Export was successfull");
+		db.close();
+		
+		
 		return "admin.html";
 	}
 	
 	@GetMapping("/admin/import")
-	public String importDBFromXML() {
+	public String importDBFromXML(Model model, 
+			@RequestParam(name= "userid") int userid,
+			@RequestParam(name= "ordergames") String gameorder,
+			@RequestParam(name= "orderlocations") String locationorder,
+			@RequestParam(name= "orderusers") String userorder) throws JDOMException, IOException
+			{
+			
+		XMLParser ps = new XMLParser();
+		Database db = new Database();
 		
-		// TODO
+		ArrayList<Game> gameList = ps.addGamesFromXML(gameorder);
+		
+		for(int g = 0 ; g < gameList.size() ; g++) {
+			
+			Game game = gameList.get(g);
+			db.regGame(game);
+			
+		}
+		
+		ArrayList<Location> locationList = ps.addLocationFromXML(locationorder);
+		
+		for( int l = 0 ; l < locationList.size() ; l ++) {
+			
+			Location loc = locationList.get(l);
+			db.regLocation(loc);
+		}
+		ArrayList<User> userList = ps.addUserFromXML(userorder);
+		
+		for(int u = 0 ; u < userList.size() ; u++) {
+			
+			User newUser = userList.get(u);
+			db.regUser(newUser);
+		}
+		
+		model.addAttribute("user", db.getUserById(userid));
+		model.addAttribute("locationList", db.getLocations());
+		model.addAttribute("userList", db.getPlayers());
+		model.addAttribute("feedbackImport","Import was successfull");
+		
+		db.close();
+		
 		return "admin.html";
 	}
+
 }

@@ -145,6 +145,9 @@
     <form action="/admin/import" method="get">
     	
     	<input type="hidden" name="userid" th:value="${user.id}">
+    	<input type="text" name="orderusers" placeholder="orderusers">
+    	<input type="text" name="orderlocations" placeholder="orderlocations">
+    	<input type="text" name="ordergames" placeholder="ordergames">
         <input type="submit" value="Import">
     
     </form>
